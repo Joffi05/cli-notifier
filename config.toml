@@ -1,5 +1,0 @@
-[notifiers.desktop]
-
-[notifiers.webhook]
-url = "http://192.168.178.57:8000/webhook"
-secret = "fdwispzt48t"
