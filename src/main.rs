@@ -26,9 +26,9 @@ pub fn load_config() -> Result<Config, Box<dyn Error>> {
     // Define the default config file name
     let config_file_name = "config.toml";
 
-/*     // Attempt to load config from the home directory
+    // Attempt to load config from the home directory
     if let Some(home_dir) = dirs::home_dir() {
-        let home_config_path = home_dir.join(".li").join(config_file_name);
+        let home_config_path = home_dir.join(".config/cli-notifier").join(config_file_name);
         if home_config_path.exists() {
             info!("Loading configuration from {}", home_config_path.display());
             let config_content = fs::read_to_string(&home_config_path)?;
@@ -36,24 +36,24 @@ pub fn load_config() -> Result<Config, Box<dyn Error>> {
             return Ok(config);
         }
     } else {
-        println!("Could not determine home directory.");
-    } */
-
-    // If not found in home directory, attempt to load from current directory
-    let current_dir = std::env::current_dir()?;
-    let current_config_path = current_dir.join(config_file_name);
-    if current_config_path.exists() {
-        info!("Loading configuration from {}", current_config_path.display());
-        let config_content = fs::read_to_string(&current_config_path)?;
-        let config: Config = toml::from_str(&config_content)?;
-        return Ok(config);
+        info!("Could not find config file in .config/cli-notifier");
+        // If not found in home directory, attempt to load from current directory
+        let current_dir = std::env::current_dir()?;
+        let current_config_path = current_dir.join(config_file_name);
+        if current_config_path.exists() {
+            info!("Loading configuration from {}", current_config_path.display());
+            let config_content = fs::read_to_string(&current_config_path)?;
+            let config: Config = toml::from_str(&config_content)?;
+            return Ok(config);
+        }
     }
+
+
 
     // If config file is not found in either location, return an error
     Err(format!(
-        "Configuration file '{}' not found in home directory (~/.li/) or current directory ({}).",
+        "Configuration file '{}' not found in home directory (~/.config/cli-notifier) or current directory.",
         config_file_name,
-        current_dir.display()
     )
     .into())
 }
