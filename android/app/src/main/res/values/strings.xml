@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">WebhookNotifier</string>
+    <string name="webhook_server_is_running">Webhook Server is Running</string>
+</resources>
